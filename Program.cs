@@ -20,6 +20,9 @@
             Console.WriteLine($"il voto massimo è {max} e la sua posizione è {posmax}");
             Console.WriteLine($"il voto minimo è {min} e la sua posizione è {posmin}");
             Console.WriteLine($"la media ponderata è {mediaPonderata}");
+            Console.WriteLine("inserisci il voto per cui vuoi trovare i voti nell' intorno di 0,5");
+            int voto = int.Parse(Console.ReadLine());
+            ElencoVotiNellIntorno(voti, pesi, nVoti, voto);
         }
 
         static void StampaVotiPesi(double[] voti, int[] pesi, int nVoti)
@@ -62,6 +65,18 @@
             }
             mediaPonderata = sommaVoti / sommaPesi;
             return mediaPonderata;
+        }
+        static void ElencoVotiNellIntorno(double[] voti, int[] pesi, int nVoti, int voto)
+        {
+            double intorno = 0.5;
+
+            Console.WriteLine($"Voti nell'intorno di {voto} +/- {intorno}:");
+
+            for (int i = 0; i < nVoti; i++)
+            {
+                if (Math.Abs(voti[i] - voto) <= intorno)
+                    Console.WriteLine($"Voto: {voti[i]}, Peso: {pesi[i]}");
+            }
         }
 
 
