@@ -23,6 +23,8 @@
             Console.WriteLine("inserisci il voto per cui vuoi trovare i voti nell' intorno di 0,5");
             int voto = int.Parse(Console.ReadLine());
             ElencoVotiNellIntorno(voti, pesi, nVoti, voto);
+            OrdinaPerVoto(ref voti, ref pesi, nVoti);
+            StampaVotiPesi(voti, pesi, nVoti);
         }
 
         static void StampaVotiPesi(double[] voti, int[] pesi, int nVoti)
@@ -35,7 +37,7 @@
         static void CaricaVettori(ref double[] voti, ref int[] pesi, int nVoti)
         {
             Random random = new Random();
-            for(int i = 0; i < nVoti; i++)
+            for (int i = 0; i < nVoti; i++)
             {
                 voti[i] = random.Next(1, 11);
                 pesi[i] = random.Next(1, 101);
@@ -47,7 +49,7 @@
             double sommaVoti = 0;
             int sommaPesi = 0;
             double mediaPonderata;
-            for(int i = 0; i<voti.Length; i++) 
+            for (int i = 0; i < voti.Length; i++)
             {
                 sommaVoti += voti[i];
                 sommaPesi += pesi[i];
@@ -76,6 +78,26 @@
             {
                 if (Math.Abs(voti[i] - voto) <= intorno)
                     Console.WriteLine($"Voto: {voti[i]}, Peso: {pesi[i]}");
+            }
+        }
+
+        static void OrdinaPerVoto(ref double[] voti, ref int[] pesi, int nVoti)
+        {
+            for (int i = 0; i < nVoti - 1; i++)
+            {
+                for (int j = 0; j < nVoti - i - 1; j++)
+                {
+                    if (voti[j] > voti[j + 1])
+                    {
+                        double tempVoto = voti[j];
+                        voti[j] = voti[j + 1];
+                        voti[j + 1] = tempVoto;
+
+                        int tempPeso = pesi[j];
+                        pesi[j] = pesi[j + 1];
+                        pesi[j + 1] = tempPeso;
+                    }
+                }
             }
         }
 
