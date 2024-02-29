@@ -17,6 +17,8 @@
             CaricaVettori(ref voti, ref pesi, nVoti);
             StampaVotiPesi(voti, pesi, nVoti);
             double mediaPonderata = MediaPonderata(voti, pesi, ref max, ref posmax, ref min, ref posmin);
+            Console.WriteLine("voti in posizione dispari >4");
+            StampaVotiDispariMaggiori4(ref voti, ref pesi, nVoti);
             Console.WriteLine($"il voto massimo è {max} e la sua posizione è {posmax}");
             Console.WriteLine($"il voto minimo è {min} e la sua posizione è {posmin}");
             Console.WriteLine($"la media ponderata è {mediaPonderata}");
@@ -39,8 +41,18 @@
             Random random = new Random();
             for (int i = 0; i < nVoti; i++)
             {
-                voti[i] = random.Next(1, 11);
+                voti[i] = random.NextDouble() * 10+1;
                 pesi[i] = random.Next(1, 101);
+            }
+        }
+
+        static void StampaVotiDispariMaggiori4(ref double[] voti, ref int[] pesi, int nVoti)
+        {
+            Console.WriteLine("voti        pesi\n --------------------- \n");
+            for (int i = 0;i < nVoti; i++)
+            {
+                if(i%2==0 && voti[i] > 4)
+                    Console.Write($"{voti[i]}        {pesi[i]}\n");
             }
         }
 
@@ -100,9 +112,5 @@
                 }
             }
         }
-
-
-
-
     }
 }
